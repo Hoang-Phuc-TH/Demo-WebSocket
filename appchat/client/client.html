@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="client.css" />
+    <title>Toggle Switch</title>
+    <!-- connnect server -->
+    <script>
+      var ws = new WebSocket("ws://localhost:8181");
+      var nickname = "";
+      ws.onopen = function (e) {
+        console.log("Connection to server opened");
+      };
+      //   function appendLog(nickname, message) {
+      //     var messages = document.getElementById("messages");
+      //     var messageElem = document.createElement("li");
+      //     var preface_label;
+      //     if (nickname === "*") {
+      //       preface_label = '<span class="label label-info">*</span>';
+      //     } else {
+      //       preface_label =
+      //         '<span class="label label-success">' + nickname + "</span>";
+      //     }
+      //     var message_text = "<h2>" + preface_label + "  " + message + "</h2>";
+      //     messageElem.innerHTML = message_text;
+      //     messages.appendChild(messageElem);
+      //   }
+      ws.onmessage = function (e) {
+        var data = JSON.parse(e.data);
+        nickname = data.nickname;
+        appendLog(data.nickname, data.message);
+        console.log("ID: [%s] = %s", data.id, data.message);
+      };
+      ws.onclose = function (e) {
+        appendLog("*", "Connection closed");
+        console.log("Connection closed");
+      };
+      function sendMessage() {
+        var messageField = document.getElementById("message");
+        if (ws.readyState === WebSocket.OPEN) {
+          if (messageField.value == "on") {
+            ws.send("Cong Tac Da Mo");
+          } else {
+            ws.send("Cong Tac Da Tat");
+          }
+        }
+        messageField.value = "";
+        messageField.focus();
+      }
+      function disconnect() {
+        ws.close();
+      }
+    </script>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Phòng Ngủ</h1>
+      <label class="switch">
+        <input type="checkbox" />
+        <span class="slider"></span>
+      </label>
+
+      <h1>Phòng Khách</h1>
+      <label class="switch" id="send">
+        <input
+          type="checkbox"
+          name="message"
+          id="message"
+          onclick="sendMessage()"
+        />
+        <span class="slider"></span>
+      </label>
+
+      <h1>Bếp Ăn</h1>
+      <label class="switch">
+        <input type="checkbox" />
+        <span class="slider"></span>
+      </label>
+
+      <h1>Toilet</h1>
+      <label class="switch">
+        <input type="checkbox" />
+        <span class="slider"></span>
+      </label>
+    </div>
+  </body>
+</html>
