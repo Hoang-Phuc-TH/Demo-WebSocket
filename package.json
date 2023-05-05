@@ -1,0 +1,32 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hoang-Phuc-TH/Demo-WebSocket.git"
+  },
+  "keywords": [
+    "f8",
+    "blog",
+    "f8",
+    "nodejs"
+  ],
+  "author": "kingcute",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hoang-Phuc-TH/Demo-WebSocket/issues"
+  },
+  "homepage": "https://github.com/Hoang-Phuc-TH/Demo-WebSocket#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
