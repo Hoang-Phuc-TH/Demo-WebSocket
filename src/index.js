@@ -6,8 +6,9 @@ const exp = require('constants')
 const app = express()
 const port = 3000
 
+const route = require('./routes')
 //http logger
-app.use(morgan('combined'))
+// app.use(morgan('combined'))
 
 //Template engine
 app.engine('hbs', engine({
@@ -19,14 +20,12 @@ app.set('views', path.join(__dirname, 'resources/views'));
 
 app.use(express.static(path.join(__dirname, 'public')))
 
-// console.log('path: ', path.join(__dirname, 'resources/views'))
-app.get('/', (req, res) => {
-    res.render('home')
-})
+app.use(express.urlencoded({ extended: true }));//middleware  gui tu html
+app.use(express.json());// gui tu js
 
-app.get('/news', (req, res) => {
-    res.render('news')
-})
+//XMLHTTPRequest , fetch m axios ,ajax 
+// console.log('path: ', path.join(__dirname, 'resources/views'))
+route(app);
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
